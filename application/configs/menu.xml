@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+	<menu>
+		<home>
+			<label>File</label>
+			<uri>javascript:;</uri>
+			<pages>
+				<new>
+					<label>New</label>
+					<uri>javascript:notImplemented();</uri>
+				</new>
+				<save>
+					<label>Save</label>
+					<uri>javascript:notImplemented();</uri>
+					<class>deactivated</class>
+				</save>
+				<save-as>
+					<label>Save As ...</label>
+					<uri>javascript:notImplemented();</uri>
+					<class>deactivated</class>
+				</save-as>
+			</pages>
+		</home>
+		<module2>
+			<label>Module2</label>
+			<uri>javascript:;</uri>
+		</module2>
+		<help>
+			<label>Help</label>
+			<uri>javascript:;</uri>
+			<pages>
+				<about>
+					<label>About</label>
+					<uri>javascript:showAboutDialog();</uri>
+				</about>
+			</pages>
+		</help>
+	</menu>
+</config>
+
