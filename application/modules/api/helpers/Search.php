@@ -73,11 +73,7 @@ class api_helpers_Search
         {        
             if ((!empty($genus)) && !(empty($species) && !empty($infraspecies)))
             {
-                $node_response = $dom->createElement("response");                
-                    
-                //$sql = " SELECT id, kingdom, phylum, class, `order`, superfamily, family, genus, 
-                //                subgenus, species, infraspecific_marker, infraspecies, author
-                //        FROM _search_scientific WHERE genus = '" . $genus . "' ";
+                $node_response = $dom->createElement("response");
                 
                 $sql = " SELECT ssac.id, ssac.kingdom, ssac.phylum, ssac.class, ssac.`order`, ssac.superfamily, ssac.family, ssac.genus, 
                                 ssac.subgenus, ssac.species, ssac.infraspecific_marker, ssac.infraspecies, ssac.author

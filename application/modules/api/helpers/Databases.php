@@ -7,4 +7,5 @@ $databases['2011']['host'] = "localhost";
 $databases['2011']['dbname'] = "col2011ac";
 $databases['2011']['username'] = "root";
 $databases['2011']['password'] = "linear";
+$databases['2011']['charset'] = "utf8";
 
