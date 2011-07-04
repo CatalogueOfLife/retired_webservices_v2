@@ -54,7 +54,7 @@
 					does not point to the public directory. You will also have to set
 					the RewriteBase in .htaccess then.
 				-->
-				<baseUrl></baseUrl>
+				<baseUrl>/webservices_v2</baseUrl>
 			</frontController>
 
 
@@ -81,7 +81,7 @@
 					<adapter>pdo_mysql</adapter>
 					<host>localhost</host>
 					<username>root</username>
-					<password></password>
+					<password>poUss4ka</password>
 					<dbname>col_webservices</dbname>
 				</application>
 				<baseschema>
