@@ -17,7 +17,8 @@ try {
     )));
         
     
-    require_once 'Zend/Application.php';  
+    require_once 'Zend/Application.php';
+/*     
 	require_once 'Zend/Config/Xml.php';
 	require_once 'Zend/Config/Ini.php';    
 
@@ -43,11 +44,11 @@ try {
 	        '] has been defined in the configuration file'
 	    );
 	}
-    
+*/    
     $application = new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . '/configs/application.xml');
 
     // Store config
-    Zend_Registry::set('config', $config);
+    //Zend_Registry::set('config', $config);
     
     $application->bootstrap()->run();
     

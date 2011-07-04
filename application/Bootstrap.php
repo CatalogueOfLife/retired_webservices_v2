@@ -152,17 +152,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     /**
      * @return Zend_View_Helper_HeadScript
      */
-    protected function _initJavascript ()
-    {
-        $helper = $this->_getView()->getHelper('HeadScript');
-        $helper->appendFile($this->_baseUrl('js/jquery-1.4.3.min.js'));
-        $helper->appendFile($this->_baseUrl('js/jquery-ui-1.8.6.custom.min.js'));
-        $helper->appendFile($this->_baseUrl('js/superfish.js'));
-        $helper->appendFile($this->_baseUrl('js/hoverIntent.js'));
-        $helper->appendFile($this->_baseUrl('js/common.js'));
-        $helper->appendFile($this->_baseUrl('js/SimpleDialog.js'));
-        return $helper;
-    }
+//    protected function _initJavascript ()
+//    {
+//        $helper = $this->_getView()->getHelper('HeadScript');
+//        $helper->appendFile($this->_baseUrl('js/jquery-1.4.3.min.js'));
+//        $helper->appendFile($this->_baseUrl('js/jquery-ui-1.8.6.custom.min.js'));
+//        $helper->appendFile($this->_baseUrl('js/superfish.js'));
+//        $helper->appendFile($this->_baseUrl('js/hoverIntent.js'));
+//        $helper->appendFile($this->_baseUrl('js/common.js'));
+//        $helper->appendFile($this->_baseUrl('js/SimpleDialog.js'));
+//        return $helper;
+//    }
 
     /**
      * @return Zend_View_Helper_HeadLink
@@ -173,8 +173,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $helper->appendStylesheet('http://yui.yahooapis.com/3.1.1/build/cssreset/reset-min.css', 'all');
         $helper->appendStylesheet('http://yui.yahooapis.com/3.1.1/build/cssfonts/fonts-min.css', 'all');
         $helper->appendStylesheet('http://yui.yahooapis.com/3.1.1/build/cssbase/base-min.css', 'all');
-        $helper->appendStylesheet($this->_baseUrl('css/superfish.css'), 'all');
-        $helper->appendStylesheet($this->_baseUrl('css/smoothness/jquery-ui-1.8.6.custom.css'), 'all');
+//        $helper->appendStylesheet($this->_baseUrl('css/superfish.css'), 'all');
+//        $helper->appendStylesheet($this->_baseUrl('css/smoothness/jquery-ui-1.8.6.custom.css'), 'all');
         $helper->appendStylesheet($this->_baseUrl('css/common.css'), 'all');
         return $helper;
     }
@@ -227,13 +227,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	/**
      * Database initialization based on the application config file
      */
-    public function _initDatabase()
-    {
-        $config = Zend_Registry::get('config');
-        $db = Zend_Db::factory($config->database);
-        Zend_Db_Table_Abstract::setDefaultAdapter($db);
-        $db->setFetchMode(Zend_Db::FETCH_ASSOC);
-        Zend_Registry::set('db', $db);
-    }
+//    public function _initDatabase()
+//    {
+//        $config = Zend_Registry::get('config');
+//        $db = Zend_Db::factory($config->database);
+//        Zend_Db_Table_Abstract::setDefaultAdapter($db);
+//        $db->setFetchMode(Zend_Db::FETCH_ASSOC);
+//        Zend_Registry::set('db', $db);
+//    }
 }
 
