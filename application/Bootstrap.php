@@ -152,17 +152,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     /**
      * @return Zend_View_Helper_HeadScript
      */
-//    protected function _initJavascript ()
-//    {
-//        $helper = $this->_getView()->getHelper('HeadScript');
-//        $helper->appendFile($this->_baseUrl('js/jquery-1.4.3.min.js'));
+    protected function _initJavascript ()
+    {
+        $helper = $this->_getView()->getHelper('HeadScript');
+        $helper->appendFile($this->_baseUrl('js/jquery-1.4.3.min.js'));
 //        $helper->appendFile($this->_baseUrl('js/jquery-ui-1.8.6.custom.min.js'));
 //        $helper->appendFile($this->_baseUrl('js/superfish.js'));
 //        $helper->appendFile($this->_baseUrl('js/hoverIntent.js'));
-//        $helper->appendFile($this->_baseUrl('js/common.js'));
+        $helper->appendFile($this->_baseUrl('js/common.js'));
 //        $helper->appendFile($this->_baseUrl('js/SimpleDialog.js'));
-//        return $helper;
-//    }
+        return $helper;
+    }
 
     /**
      * @return Zend_View_Helper_HeadLink
