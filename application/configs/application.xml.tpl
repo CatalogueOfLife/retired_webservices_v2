@@ -10,9 +10,9 @@
 	<production>
 
 		<phpSettings>
-			<display_startup_errors>0</display_startup_errors>
-			<display_errors>0</display_errors>
-			<error_reporting>0</error_reporting>
+			<display_startup_errors>1</display_startup_errors>
+			<display_errors>1</display_errors>
+			<error_reporting>1</error_reporting>
 		</phpSettings>
 
 		<includePaths>
@@ -23,12 +23,25 @@
 			<path><zf:const zf:name="APPLICATION_PATH" />/Bootstrap.php</path>
 			<class>Bootstrap</class>
 		</bootstrap>
-
+		
+<!-- 
+		<database>
+            <adapter>Mysqli</adapter>
+            <params>
+                <port>3306</port>
+                <host>localhost</host>
+                <username>root</username>
+                <password>linear</password>
+                <dbname>col2011ac</dbname>
+                <profiler enabled="0" />
+            </params>
+        </database>
+-->
 		<resources>
 			<!-- FRONT CONTROLLER -->
 			<frontController>
 				<moduleDirectory><zf:const zf:name="APPLICATION_PATH" />/modules</moduleDirectory>
-				<defaultModule>home</defaultModule>
+				<defaultModule>api</defaultModule>
 				<moduleControllerDirectoryName>controllers</moduleControllerDirectoryName>
 				<params>
 					<displayExceptions>1</displayExceptions>
@@ -39,8 +52,9 @@
 					does not point to the public directory. You will also have to set
 					the RewriteBase in .htaccess then.
 				-->
-				<baseUrl></baseUrl>
+				<baseUrl>/</baseUrl>
 			</frontController>
+
 
 			<!-- LAYOUT -->
 			<layout>
@@ -58,17 +72,23 @@
 			<!-- LOCALE -->
 			<locale>
 				<default>en_US</default>
-			</locale>
-
-			<!-- DATABASE -->
+			</locale>			
+			
 			<multidb>
-				<db1>
+				<application>
 					<adapter>pdo_mysql</adapter>
 					<host>localhost</host>
 					<username>root</username>
 					<password></password>
-					<dbname>information_schema</dbname>
-				</db1>
+					<dbname>col_webservices</dbname>
+				</application>
+				<baseschema>
+					<adapter>pdo_mysql</adapter>
+					<host>localhost</host>
+					<username>root</username>
+					<password></password>
+					<dbname>base_schema_v19</dbname>
+				</baseschema>
 			</multidb>
 		</resources>
 

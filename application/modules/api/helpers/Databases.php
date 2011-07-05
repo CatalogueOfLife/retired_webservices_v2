@@ -1,6 +1,10 @@
 <?php
 
-$default_database = "dev.4d4life.eu";
+/*
+
+NOT NEEDED ANY LONGER - RETRIEVED FROM application.xml
+
+$default_database = "ayco-local";
 
 $databases['2011']['adapter'] = "Mysqli";
 $databases['2011']['host'] = "localhost";
@@ -22,4 +26,6 @@ $databases['dev.4d4life.eu']['dbname'] = "bs_v19";
 $databases['dev.4d4life.eu']['username'] = "root";
 $databases['dev.4d4life.eu']['password'] = "poUss4ka";
 $databases['dev.4d4life.eu']['charset'] = "utf8";
+
+*/
 

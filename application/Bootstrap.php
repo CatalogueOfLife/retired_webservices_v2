@@ -224,16 +224,5 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         return $this->getResource('view');
     }
     
-	/**
-     * Database initialization based on the application config file
-     */
-//    public function _initDatabase()
-//    {
-//        $config = Zend_Registry::get('config');
-//        $db = Zend_Db::factory($config->database);
-//        Zend_Db_Table_Abstract::setDefaultAdapter($db);
-//        $db->setFetchMode(Zend_Db::FETCH_ASSOC);
-//        Zend_Registry::set('db', $db);
-//    }
 }
 
