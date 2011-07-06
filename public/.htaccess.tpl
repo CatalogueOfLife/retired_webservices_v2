@@ -8,7 +8,7 @@ RewriteEngine On
 # not point to the directory containing index.php,
 # set the RewriteBase!!
 ####################################################
-RewriteBase @BASE_URL@
+RewriteBase @baseurl@
 
 
 RewriteCond %{REQUEST_FILENAME} \.(js|ico|gif|jpg|jpeg|png|css|pdf|pdf)$ [OR]
