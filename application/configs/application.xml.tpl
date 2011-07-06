@@ -24,19 +24,6 @@
 			<class>Bootstrap</class>
 		</bootstrap>
 		
-<!-- 
-		<database>
-            <adapter>Mysqli</adapter>
-            <params>
-                <port>3306</port>
-                <host>localhost</host>
-                <username>root</username>
-                <password>linear</password>
-                <dbname>col2011ac</dbname>
-                <profiler enabled="0" />
-            </params>
-        </database>
--->
 		<resources>
 			<!-- FRONT CONTROLLER -->
 			<frontController>
@@ -52,7 +39,7 @@
 					does not point to the public directory. You will also have to set
 					the RewriteBase in .htaccess then.
 				-->
-				<baseUrl>/</baseUrl>
+				<baseUrl>@baseurl@</baseUrl>
 			</frontController>
 
 
@@ -77,17 +64,17 @@
 			<multidb>
 				<application>
 					<adapter>pdo_mysql</adapter>
-					<host>localhost</host>
-					<username>root</username>
-					<password></password>
-					<dbname>col_webservices</dbname>
+					<host>@db.application.host@</host>
+					<dbname>@db.application.database@</dbname>
+					<username>@db.application.username@</username>
+					<password>@db.application.password@</password>
 				</application>
 				<baseschema>
 					<adapter>pdo_mysql</adapter>
-					<host>localhost</host>
-					<username>root</username>
-					<password></password>
-					<dbname>base_schema_v19</dbname>
+					<host>@db.baseschema.host@</host>
+					<dbname>@db.baseschema.database@</dbname>
+					<username>@db.baseschema.username@</username>
+					<password>@db.baseschema.password@</password>
 				</baseschema>
 			</multidb>
 		</resources>
