@@ -8,7 +8,7 @@ class api_helpers_Search
     protected $_formatOutput = true;
     protected $_db;
 
-    public function selectSynonyms ($genus, $species, $infraspecies, $version, $format)
+    public function selectSynonyms ($genus, $species, $infraspecies, $version, $format, $key)
     {
         $found = false;
         $continue = true;
@@ -55,20 +55,49 @@ class api_helpers_Search
         
         $node_sp2000->appendChild($node_request);
         
-        try {
-            
-            try {
-                $resource = Bootstrap::instance()->getPluginResource('multidb');
-                $this->_db = $resource->getDb('baseschema');
-            }
-            catch (Exception $e) {
-                $node_ws_status->setAttribute("id", "200");
-                $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable connect to the specified database."));
-                $continue = false;
-            }
-            
-            if ($continue) {
-                if ((!empty($genus)) && !(empty($species) && !empty($infraspecies))) {
+        try
+        {
+            if ((!empty($genus)) && (!empty($key)) && !(empty($species) && !empty($infraspecies)))
+            {                 
+                try
+                {
+                    $resource = Bootstrap::instance()->getPluginResource('multidb');
+                    $this->_db = $resource->getDb('application');
+                    
+                    $sql = " SELECT COUNT(*) FROM key_store WHERE service_key = '" . $key . "' ";
+                    $count = (int)$this->_db->fetchOne($sql);
+                    
+                    if ($count == 0)
+                    {
+                        $node_ws_status->setAttribute("id", "500");
+                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Invalid key."));
+                        $continue = false;
+                    }
+                }
+                catch (Exception $e)
+                {
+                    $node_ws_status->setAttribute("id", "400");
+                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable verify the validity of the key."));
+                    $continue = false;
+                }
+                
+                if ($continue)
+                {            
+                    try
+                    {
+                        $resource = Bootstrap::instance()->getPluginResource('multidb');
+                        $this->_db = $resource->getDb('baseschema');
+                    }
+                    catch (Exception $e)
+                    {
+                        $node_ws_status->setAttribute("id", "200");
+                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable connect to the specified database."));
+                        $continue = false;
+                    }
+                }
+                
+                if ($continue) {
+                
                     $node_response = $dom->createElement("response");
                     
                     $sql = " SELECT ssac.id, ssac.kingdom, ssac.phylum, ssac.class, ssac.`order`, ssac.superfamily, ssac.family, ssac.genus, 
@@ -77,24 +106,29 @@ class api_helpers_Search
                                 LEFT JOIN _search_scientific ssac ON (ss.accepted_species_id = ssac.id OR (ss.status IN (0,1,4) AND ss.id = ssac.id))
                              WHERE ss.genus = '" . $genus . "' ";
                     
-                    if (!empty($species)) {
+                    if (!empty($species))
+                    {
                         $sql .= " AND ss.species = '" . $species . "' ";
                     }
-                    else {
+                    else
+                    {
                         $sql .= " AND (ss.species IS NULL OR ss.species = '') ";
                     }
                     
-                    if (!empty($infraspecies)) {
+                    if (!empty($infraspecies))
+                    {
                         $sql .= " AND ss.infraspecies = '" . $infraspecies . "' ";
                     }
-                    else {
+                    else
+                    {
                         $sql .= " AND (ss.infraspecies IS NULL OR ss.infraspecies = '') ";
                     }
                     
                     $accepted = $this->_db->query($sql);
                     $rows_accepted = $accepted->fetchAll();
                     
-                    foreach ($rows_accepted as $row_ac) {
+                    foreach ($rows_accepted as $row_ac)
+                    {
                         $found = true;
                         
                         $node_accepted = $dom->createElement("accepted_name");
@@ -149,7 +183,8 @@ class api_helpers_Search
                         $node_synonyms = $dom->createElement("synonyms");
                         
                         $rows_synonym = $this->_db->query($sql);
-                        while ($row_sy = $rows_synonym->fetch()) {
+                        while ($row_sy = $rows_synonym->fetch())
+                        {
                             $node_synonym = $dom->createElement("synonym");
                             $node_synonym->setAttribute("id", $row_sy["id"]);
                             
@@ -202,25 +237,29 @@ class api_helpers_Search
                         $node_response->appendChild($node_accepted);
                     }
                     
-                    if ($found) {
+                    if ($found)
+                    {
                         $node_ws_status->setAttribute("id", "0");
                         $node_ws_status->appendChild($this->_createFormatedText($dom, "Success"));
                     }
-                    else {
+                    else
+                    {
                         $node_ws_status->setAttribute("id", "100");
                         $node_ws_status->appendChild($this->_createFormatedText($dom, "Name not found"));
                     }
                     
                     $node_sp2000->appendChild($node_response);
                 }
-                else {
-                    $node_ws_status->setAttribute("id", "300");
-                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Required parameters not specified"));
-                }
+            }
+            else
+            {
+                $node_ws_status->setAttribute("id", "300");
+                $node_ws_status->appendChild($this->_createFormatedText($dom, "Required parameters not specified"));
             }
         }
-        catch (Exception $e) {
-            $node_ws_status->setAttribute("id", "400");
+        catch (Exception $e)
+        {
+            $node_ws_status->setAttribute("id", "600");
             $node_ws_status->appendChild($this->_createFormatedText($dom, $e->getMessage()));
         }
         
@@ -230,7 +269,7 @@ class api_helpers_Search
         return htmlspecialchars_decode($dom->saveXML(), ENT_NOQUOTES);
     }
 
-    public function selectCommonNames ($genus, $species, $infraspecies, $version, $format)
+    public function selectCommonNames ($genus, $species, $infraspecies, $version, $format, $key)
     {
         $found = false;
         $continue = true;
@@ -277,19 +316,49 @@ class api_helpers_Search
         
         $node_sp2000->appendChild($node_request);
         
-        try {
-            try {
-                $resource = Bootstrap::instance()->getPluginResource('multidb');
-                $this->_db = $resource->getDb('baseschema');
-            }
-            catch (Exception $e) {
-                $node_ws_status->setAttribute("id", "200");
-                $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable connect to the specified database."));
-                $continue = false;
-            }
+        try
+        {            
+            if ((!empty($genus)) && (!empty($key)) && !(empty($species) && !empty($infraspecies)))
+            {            
+                try
+                {
+                    $resource = Bootstrap::instance()->getPluginResource('multidb');
+                    $this->_db = $resource->getDb('application');
+                    
+                    $sql = " SELECT COUNT(*) FROM key_store WHERE service_key = '" . $key . "' ";
+                    $count = (int)$this->_db->fetchOne($sql);
+                    
+                    if ($count == 0)
+                    {
+                        $node_ws_status->setAttribute("id", "500");
+                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Invalid key."));
+                        $continue = false;
+                    }
+                }
+                catch (Exception $e)
+                {
+                    $node_ws_status->setAttribute("id", "400");
+                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable verify the validity of the key."));
+                    $continue = false;
+                }
+                
+                if ($continue)
+                {            
+                    try
+                    {
+                        $resource = Bootstrap::instance()->getPluginResource('multidb');
+                        $this->_db = $resource->getDb('baseschema');
+                    }
+                    catch (Exception $e)
+                    {
+                        $node_ws_status->setAttribute("id", "200");
+                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable connect to the specified database."));
+                        $continue = false;
+                    }
+                }
             
-            if ($continue) {
-                if ((!empty($genus)) && !(empty($species) && !empty($infraspecies))) {
+                if ($continue)
+                {                
                     $node_response = $dom->createElement("response");
                     
                     $sql = " SELECT cne.id, cne.name, cn.language_iso, cn.country_iso
@@ -298,23 +367,28 @@ class api_helpers_Search
                                 INNER JOIN common_name_element cne ON (cn.common_name_element_id = cne.id)
                             WHERE ss.genus = '" . $genus . "' ";
                     
-                    if (!empty($species)) {
+                    if (!empty($species))
+                    {
                         $sql .= " AND ss.species = '" . $species . "' ";
                     }
-                    else {
+                    else
+                    {
                         $sql .= " AND (ss.species IS NULL OR ss.species = '') ";
                     }
                     
-                    if (!empty($infraspecies)) {
+                    if (!empty($infraspecies))
+                    {
                         $sql .= " AND ss.infraspecies = '" . $infraspecies . "' ";
                     }
-                    else {
+                    else
+                    {
                         $sql .= " AND (ss.infraspecies IS NULL OR ss.infraspecies = '') ";
                     }
                     
                     $rows_commons = $this->_db->query($sql);
                     
-                    while ($row_co = $rows_commons->fetch()) {
+                    while ($row_co = $rows_commons->fetch())
+                    {
                         $found = true;
                         
                         $node_common = $dom->createElement("common");
@@ -334,25 +408,29 @@ class api_helpers_Search
                         $node_response->appendChild($node_common);
                     }
                     
-                    if ($found) {
+                    if ($found)
+                    {
                         $node_ws_status->setAttribute("id", "0");
                         $node_ws_status->appendChild($this->_createFormatedText($dom, "Success"));
                     }
-                    else {
+                    else
+                    {
                         $node_ws_status->setAttribute("id", "100");
                         $node_ws_status->appendChild($this->_createFormatedText($dom, "Common name not found"));
                     }
                     
                     $node_sp2000->appendChild($node_response);
                 }
-                else {
-                    $node_ws_status->setAttribute("id", "300");
-                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Required parameters not specified"));
-                }
+            }
+            else
+            {
+                $node_ws_status->setAttribute("id", "300");
+                $node_ws_status->appendChild($this->_createFormatedText($dom, "Required parameters not specified"));
             }
         }
-        catch (Exception $e) {
-            $node_ws_status->setAttribute("id", "400");
+        catch (Exception $e)
+        {
+            $node_ws_status->setAttribute("id", "600");
             $node_ws_status->appendChild($this->_createFormatedText($dom, $e->getMessage()));
         }
         
@@ -362,7 +440,7 @@ class api_helpers_Search
         return htmlspecialchars_decode($dom->saveXML(), ENT_NOQUOTES);
     }
 
-    public function selectStatus ($genus, $species, $infraspecies, $version, $format)
+    public function selectStatus ($genus, $species, $infraspecies, $version, $format, $key)
     {
         $found = false;
         $continue = true;
@@ -409,20 +487,49 @@ class api_helpers_Search
         
         $node_sp2000->appendChild($node_request);
         
-        try {
+        try
+        {
+            if ((!empty($genus)) && (!empty($key)) && !(empty($species) && !empty($infraspecies)))
+            {                
+                try
+                {
+                    $resource = Bootstrap::instance()->getPluginResource('multidb');
+                    $this->_db = $resource->getDb('application');
+                    
+                    $sql = " SELECT COUNT(*) FROM key_store WHERE service_key = '" . $key . "' ";
+                    $count = (int)$this->_db->fetchOne($sql);
+                    
+                    if ($count == 0)
+                    {
+                        $node_ws_status->setAttribute("id", "500");
+                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Invalid key."));
+                        $continue = false;
+                    }
+                }
+                catch (Exception $e)
+                {
+                    $node_ws_status->setAttribute("id", "400");
+                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable verify the validity of the key."));
+                    $continue = false;
+                }
+                
+                if ($continue)
+                {            
+                    try
+                    {
+                        $resource = Bootstrap::instance()->getPluginResource('multidb');
+                        $this->_db = $resource->getDb('baseschema');
+                    }
+                    catch (Exception $e)
+                    {
+                        $node_ws_status->setAttribute("id", "200");
+                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable connect to the specified database."));
+                        $continue = false;
+                    }
+                }
             
-            try {
-                $resource = Bootstrap::instance()->getPluginResource('multidb');
-                $this->_db = $resource->getDb('baseschema');
-            }
-            catch (Exception $e) {
-                $node_ws_status->setAttribute("id", "200");
-                $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable connect to the specified database."));
-                $continue = false;
-            }
-            
-            if ($continue) {
-                if ((!empty($genus)) && !(empty($species) && !empty($infraspecies))) {
+                if ($continue)
+                {                
                     $node_response = $dom->createElement("response");
                     
                     $sql = " SELECT sns.name_status, ssac.id, ssac.kingdom, ssac.phylum, ssac.class, ssac.`order`, ssac.superfamily, ssac.family, ssac.genus, 
@@ -432,17 +539,21 @@ class api_helpers_Search
                                 LEFT JOIN _search_scientific ssac ON (ss.accepted_species_id = ssac.id OR (ss.status IN (0,1,4) AND ss.id = ssac.id))
                              WHERE ss.genus = '" . $genus . "' ";
                     
-                    if (!empty($species)) {
+                    if (!empty($species))
+                    {
                         $sql .= " AND ss.species = '" . $species . "' ";
                     }
-                    else {
+                    else
+                    {
                         $sql .= " AND (ss.species IS NULL OR ss.species = '') ";
                     }
                     
-                    if (!empty($infraspecies)) {
+                    if (!empty($infraspecies))
+                    {
                         $sql .= " AND ss.infraspecies = '" . $infraspecies . "' ";
                     }
-                    else {
+                    else
+                    {
                         $sql .= " AND (ss.infraspecies IS NULL OR ss.infraspecies = '') ";
                     }
                     
@@ -450,17 +561,20 @@ class api_helpers_Search
                     
                     $first = true;
                     
-                    while ($row_sc = $rows_sciname->fetch()) {
+                    while ($row_sc = $rows_sciname->fetch())
+                    {
                         $found = true;
                         
-                        if ($first) {
+                        if ($first)
+                        {
                             $node_status = $dom->createElement("status");
                             $node_status->appendChild($this->_createFormatedText($dom, $row_sc["name_status"]));
                             $node_response->appendChild($node_status);
                             $first = false;
                         }
                         
-                        if (!empty($row_sc["id"])) {
+                        if (!empty($row_sc["id"]))
+                        {
                             $node_accepted = $dom->createElement("accepted_name");
                             $node_accepted->setAttribute("id", $row_sc["id"]);
                             
@@ -507,25 +621,29 @@ class api_helpers_Search
                         }
                     }
                     
-                    if ($found) {
+                    if ($found)
+                    {
                         $node_ws_status->setAttribute("id", "0");
                         $node_ws_status->appendChild($this->_createFormatedText($dom, "Success"));
                     }
-                    else {
+                    else
+                    {
                         $node_ws_status->setAttribute("id", "100");
                         $node_ws_status->appendChild($this->_createFormatedText($dom, "Name not found"));
                     }
                     
                     $node_sp2000->appendChild($node_response);
                 }
-                else {
-                    $node_ws_status->setAttribute("id", "300");
-                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Required parameters not specified"));
-                }
+            }
+            else
+            {
+                $node_ws_status->setAttribute("id", "300");
+                $node_ws_status->appendChild($this->_createFormatedText($dom, "Required parameters not specified"));
             }
         }
-        catch (Exception $e) {
-            $node_ws_status->setAttribute("id", "400");
+        catch (Exception $e)
+        {
+            $node_ws_status->setAttribute("id", "600");
             $node_ws_status->appendChild($this->_createFormatedText($dom, $e->getMessage()));
         }
         
