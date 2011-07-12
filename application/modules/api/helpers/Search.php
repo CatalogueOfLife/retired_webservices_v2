@@ -77,7 +77,7 @@ class api_helpers_Search
                 catch (Exception $e)
                 {
                     $node_ws_status->setAttribute("id", "400");
-                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable verify the validity of the key."));
+                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable to verify the validity of the key."));
                     $continue = false;
                 }
                 
@@ -91,7 +91,7 @@ class api_helpers_Search
                     catch (Exception $e)
                     {
                         $node_ws_status->setAttribute("id", "200");
-                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable connect to the specified database."));
+                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable to connect to the specified database."));
                         $continue = false;
                     }
                 }
@@ -338,7 +338,7 @@ class api_helpers_Search
                 catch (Exception $e)
                 {
                     $node_ws_status->setAttribute("id", "400");
-                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable verify the validity of the key."));
+                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable to verify the validity of the key."));
                     $continue = false;
                 }
                 
@@ -352,7 +352,7 @@ class api_helpers_Search
                     catch (Exception $e)
                     {
                         $node_ws_status->setAttribute("id", "200");
-                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable connect to the specified database."));
+                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable to connect to the specified database."));
                         $continue = false;
                     }
                 }
@@ -509,7 +509,7 @@ class api_helpers_Search
                 catch (Exception $e)
                 {
                     $node_ws_status->setAttribute("id", "400");
-                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable verify the validity of the key."));
+                    $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable to verify the validity of the key."));
                     $continue = false;
                 }
                 
@@ -523,7 +523,7 @@ class api_helpers_Search
                     catch (Exception $e)
                     {
                         $node_ws_status->setAttribute("id", "200");
-                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable connect to the specified database."));
+                        $node_ws_status->appendChild($this->_createFormatedText($dom, "Unable to connect to the specified database."));
                         $continue = false;
                     }
                 }
