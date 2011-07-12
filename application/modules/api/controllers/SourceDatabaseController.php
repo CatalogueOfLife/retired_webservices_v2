@@ -26,7 +26,28 @@ class SourceDatabaseController extends RestController
     
     }
 
-    public function saveSourceDatabaseAction ()
+    /**
+     * The following properties can be set and saved:
+     * 
+     * - name
+     * - abbreviatedName
+     * - groupNameInEnglish
+     * - authorsAndEditors
+     * - organisation
+     * - contactPerson
+     * - version
+     * - releaseDate
+     * - abstract
+     * - coverage
+     * - completeness
+     * - confidence
+     * 
+     * Example:
+     * 
+     * http://localhost/webservices_v2/sourcedatabase/save/?name=ayco&abbreviatedName=ayco&organisation=ETI
+     * 
+     */
+    public function saveAction ()
     {
         $sdb = new api_models_dao_SourceDatabase();
         $sdb->initialize($this->_request->getParams(), true, 'strip_tags');
@@ -56,7 +77,7 @@ class SourceDatabaseController extends RestController
         exit();
     }
 
-    public function updateSourceDatabaseAction ()
+    public function updateAction ()
     {
         $response = new api_classes_Response();
         $sdb = new api_models_dao_SourceDatabase();
@@ -84,7 +105,7 @@ class SourceDatabaseController extends RestController
         exit();
     }
 
-    public function deleteSourceDatabaseAction ()
+    public function deleteAction ()
     {
         $sdb = new api_models_dao_SourceDatabase();
         $sdb->initialize($this->_request->getParams(), true, 'strip_tags');
