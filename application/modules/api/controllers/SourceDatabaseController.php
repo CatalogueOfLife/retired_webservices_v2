@@ -65,7 +65,7 @@ class SourceDatabaseController extends RestController
         catch (Exception $e) {
             $response->errLevel = api_classes_Response::ERR_LEVEL_ERROR;
             $response->errMessage = get_class($e) . '. ' . $e->getMessage();
-            if ($this->_param('_debug') === true) {
+            if ($this->_param('_debug') === 'true') {
                 $response->method = __METHOD__;
                 $response->params = $this->_request->getParams();
                 $response->stackTrace = $e->getTrace();
@@ -93,7 +93,7 @@ class SourceDatabaseController extends RestController
         catch (Exception $e) {
             $response->errLevel = api_classes_Response::ERR_LEVEL_ERROR;
             $response->errMessage = get_class($e) . '. ' . $e->getMessage();
-            if ($this->_param('_debug') === true) {
+            if ($this->_param('_debug') === 'true') {
                 $response->method = __METHOD__;
                 $response->params = $this->_request->getParams();
                 $response->stackTrace = $e->getTrace();
@@ -124,7 +124,7 @@ class SourceDatabaseController extends RestController
         catch (Exception $e) {
             $response->errLevel = api_classes_Response::ERR_LEVEL_ERROR;
             $response->errMessage = get_class($e) . '. ' . $e->getMessage();
-            if ($this->_param('_debug') === true) {
+            if ($this->_param('_debug') === 'true') {
                 $response->method = __METHOD__;
                 $response->params = $this->_request->getParams();
                 $response->stackTrace = $e->getTrace();
