@@ -2,7 +2,7 @@
 
 class api_models_dao_SourceDatabase extends BaseDAO
 {
-    private $_id;
+    private $_flushTime;
     private $_name;
     private $_abbreviatedName;
     private $_groupNameInEnglish;
@@ -12,19 +12,20 @@ class api_models_dao_SourceDatabase extends BaseDAO
     private $_version;
     private $_releaseDate;
     private $_abstract;
+    private $_taxonomicCoverage;
     
     private $_coverage;
     private $_completeness;
     private $_confidence;
- 
-    public function getId ()
+
+    public function getFlushTime ()
     {
-        return $this->_id;
+        return $this->_flushTime;
     }
 
-    public function setId ($_id)
+    public function setFLushTime ($_flushTime)
     {
-        $this->_id = $_id;
+        $this->_flushTime = $_flushTime;
     }
 
     public function getName ()
@@ -116,36 +117,45 @@ class api_models_dao_SourceDatabase extends BaseDAO
     {
         $this->_abstract = $_abstract;
     }
-	public function getCoverage ()
+
+    public function getTaxonomicCoverage ()
+    {
+        return $this->_taxonomicCoverage;
+    }
+
+    public function setTaxonomicCoverage ($_taxonomicCoverage)
+    {
+        $this->_taxonomicCoverage = $_taxonomicCoverage;
+    }
+
+    public function getCoverage ()
     {
         return $this->_coverage;
     }
 
-	public function setCoverage ($_coverage)
+    public function setCoverage ($_coverage)
     {
         $this->_coverage = $_coverage;
     }
 
-	public function getCompleteness ()
+    public function getCompleteness ()
     {
         return $this->_completeness;
     }
 
-	public function setCompleteness ($_completeness)
+    public function setCompleteness ($_completeness)
     {
         $this->_completeness = $_completeness;
     }
 
-	public function getConfidence ()
+    public function getConfidence ()
     {
         return $this->_confidence;
     }
 
-	public function setConfidence ($_confidence)
+    public function setConfidence ($_confidence)
     {
         $this->_confidence = $_confidence;
     }
-
-
 
 }
