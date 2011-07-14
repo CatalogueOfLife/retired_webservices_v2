@@ -35,7 +35,7 @@ class SourceDatabaseController extends RestController
         $flushTime = time();
         $response = new api_classes_Response();
         $arrs = Zend_Json::decode($this->_param('flush'));
-                Zend_Debug::dump($arrs);
+                Zend_Debug::dump($this->_param('flush'));
                 die();
         try {
             foreach ($arrs as $arr) {
