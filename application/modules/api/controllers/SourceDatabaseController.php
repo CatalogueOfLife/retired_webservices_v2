@@ -34,9 +34,7 @@ class SourceDatabaseController extends RestController
     {
         $flushTime = time();
         $response = new api_classes_Response();
-        $arrs = Zend_Json::decode($this->_param('flush'));
-                Zend_Debug::dump($this->_param('flush'));
-                die();
+        $arrs = Zend_Json::decode(str_replace('\\','',$this->_param('flush')));
         try {
             foreach ($arrs as $arr) {
                 $sdb = new api_models_dao_SourceDatabase();
