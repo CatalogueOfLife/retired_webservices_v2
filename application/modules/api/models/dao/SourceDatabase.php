@@ -2,21 +2,21 @@
 
 class api_models_dao_SourceDatabase extends BaseDAO
 {
-    private $_flushTime;
-    private $_name;
-    private $_abbreviatedName;
-    private $_groupNameInEnglish;
-    private $_authorsAndEditors;
-    private $_organisation;
-    private $_contactPerson;
-    private $_version;
-    private $_releaseDate;
-    private $_abstract;
-    private $_taxonomicCoverage;
+    public  $_flushTime;
+    public  $_name;
+    public  $_abbreviatedName;
+    public  $_groupNameInEnglish;
+    public  $_authorsAndEditors;
+    public  $_organisation;
+    public  $_contactPerson;
+    public  $_version;
+    public  $_releaseDate;
+    public  $_abstract;
+    public  $_taxonomicCoverage;
     
-    private $_coverage;
-    private $_completeness;
-    private $_confidence;
+    public  $_coverage;
+    public  $_completeness;
+    public  $_confidence;
 
     public function getFlushTime ()
     {
