@@ -25,7 +25,7 @@ class SourceDatabaseController extends RestController
     {
         $sdb = new api_models_dao_SourceDatabase();
         $this->_response->setHeader('Content-Type', 'application/json');
-        $this->_response->setBody((Zend_Json::encode($sdb->loadMultiple1())));
+        $this->_response->setBody(rawurlencode((Zend_Json::encode($sdb->loadMultiple1()))));
         $this->_response->sendResponse();
         exit();
     }
