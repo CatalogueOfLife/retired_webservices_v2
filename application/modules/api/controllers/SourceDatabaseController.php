@@ -40,8 +40,6 @@ class SourceDatabaseController extends RestController
                 $sdb = new api_models_dao_SourceDatabase();
                 $sdb->initialize($arr);
                 $sdb->setFLushTime($flushTime);
-                Zend_Debug::dump($sdb);
-                die();
                 $sdb->save();
             }
         }
