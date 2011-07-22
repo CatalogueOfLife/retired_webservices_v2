@@ -25,14 +25,15 @@ class SpeciesEstimateController extends RestController
     
     }
     
-    public function flushAction () {
+    public function flushAction ()
+    {
         $flushTime = time();
         $response = new api_classes_Response();
         $arrs = Zend_Json::decode($this->_param('flush'));
         try {
-            $sdb = new api_models_dao_SpeciesEstimate();
             foreach ($arrs as $arr) {
-	            $sdb->initialize($arr);
+            	$sdb = new api_models_dao_SpeciesEstimate();
+            	$sdb->initialize($arr);
 	            $sdb->setFLushTime($flushTime);
 	            $sdb->save();
             }
