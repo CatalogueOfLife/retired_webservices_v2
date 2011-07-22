@@ -1,0 +1,83 @@
+<br />
+<h1 style="text-decoration: underline;">Status of a scientific name in CoL</h1>
+<br /><br />
+<p>
+    Input is a scientific name (a genus name, a species name (binomial) or an infra-species name (trinomial) and the output is an XML with the status of the provided name in the Catalog of Life and a list of related accepted names with all the available information about each name.
+</p>
+<h4>Input URL</h4>
+<p>
+http://&lt;domain&gt;/status/query/genus/&lt;genus_name&gt;[/species/&lt;species_name&gt;[/infraspecies/&lt;infraspecies_name&gt;]][/version/&lt;version_year&gt;]
+</p>
+<h4>Parameters</h4>
+<ul>
+    <li>status - mandatory, service name</li>
+    <li>query - mandatory, action name</li>
+    <li>genus/&lt;genus_name&gt; - mandatory</li>
+    <li>species/&lt;species_name&gt; - optional</li>
+    <li>infraspecies/&lt;infraspecies_name&gt; - optional, requires species parameter</li>
+    <li>version/&lt;db_version&gt; - optional, default latest (or last) version.</li>
+</ul>
+<h4>Examples</h4>
+<ul>
+    <li>http://www.sp2000.org/status/query/genus/Tabebuia</li>
+    <li>http://www.sp2000.org/status/query/genus/Salinator/species/solida/version/2011</li>
+    <li>http://www.sp2000.org/status/query/genus/Caryodes/species/dufresnii/infraspecies/superior/version/2011</li>
+</ul>
+
+<h4>XML Output</h4>
+&lt;?xml version='1.0' encoding='utf-8'?&gt;<br />
+&lt;sp2000&gt;<br />
+&nbsp;&nbsp;&lt;request&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;service id='status'&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;description&gt;Status of a scientific name in CoL&lt;/description&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;parameters&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;genus&gt;Caryodes&lt;/genus&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;species&gt;dufresnii&lt;/species&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;infraspecies&gt;superior&lt;/infraspecies&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;version&gt;2011&lt;/version&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/parameters&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;date&gt;09 Jun 2021 10:18:14 GMT&lt;/date&gt;<br />
+&nbsp;&nbsp;&lt;/request&gt;<br />
+&nbsp;&nbsp;&lt;response&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;status&gt;accepted name|ambiguous synonym|misapplied name|privisionally accepted<br /> name|synomym&lt;/status&gt;<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;accepted_name id='1221'&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;kingdom&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/kingdom&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;phylum&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/phylum&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/class&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;order&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/order&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;superfamily&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/superfamily&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;family&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/family&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;genus&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/genus&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subgenus&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/subgenus&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;species&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/species&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;infraspecies_marker&gt; &nbsp;&nbsp;&nbsp;&nbsp;&lt;/infraspecies_marker&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;infraspecies&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/infraspecies&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;author&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/author&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/accepted_name&gt;<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;accepted_name id='1222'&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;kingdom&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/kingdom&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;phylum&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/phylum&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;class&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/class&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;order&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/order&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;superfamily&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/superfamily&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;family&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/family&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;genus&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/genus&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;subgenus&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/subgenus&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;species&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/species&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;infraspecies_marker&gt; &nbsp;&nbsp;&nbsp;&nbsp;&lt;/infraspecies_marker&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;infraspecies&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/infraspecies&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;author&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/author&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/accepted_name&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&lt;/response&gt;<br />
+&nbsp;&nbsp;&lt;status code='0'&gt;Success&lt;/status&gt;<br />
+&nbsp;&nbsp;&lt;status code='100'&gt;Name not found&lt;/status&gt;<br />
+&nbsp;&nbsp;&lt;status code='200'&gt;Unable connect to the specified database&lt;/status&gt;<br />
+&nbsp;&nbsp;&lt;status code='300'&gt;Required parameters not specified&lt;/status&gt;<br />
+&nbsp;&nbsp;&lt;status code='400'&gt;Unable verify the validity of the key&lt;/status&gt;<br />
+&nbsp;&nbsp;&lt;status code='500'&gt;Invalid key&lt;/status&gt;<br />
+&nbsp;&nbsp;&lt;status code='600'&gt;[Generic error message]&lt;/status&gt;<br />
+&lt;/sp2000&gt;<br />
+<br /><br />

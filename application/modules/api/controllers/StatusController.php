@@ -25,7 +25,7 @@ class StatusController extends RestController
     
     public function indexAction ()
     {
-        
+        $this->_response->setHeader('Content-Type', 'text/html');
     }
 
     public function getAction ()
