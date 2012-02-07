@@ -6,6 +6,32 @@ abstract class RestController extends Zend_Rest_Controller
 
     public function preDispatch ()
     {
+        
+        $key = $this->_getParam('key', null);
+        if ($key === null) {
+            $this->_response->setHttpResponseCode(403);
+            $this->_response->setBody('You must provide a "key" parameter in your request to gain access to this service. Go to /index.php to request a key.');
+            $this->_response->sendResponse();
+            exit();
+        }
+        
+        $domain = $_SERVER['REMOTE_ADDR'];
+        $keyStore = new api_models_dao_KeyStore();
+        
+        if (!$keyStore->load($domain)) {
+            $this->_response->setHttpResponseCode(403);
+            $this->_response->setBody('The domain (' . $domain . ') from which the web service is called has not been registered yet. Go to /index.php to request a key for your domain.');
+            $this->_response->sendResponse();
+            exit();
+        }
+        
+        if ($keyStore->getServiceKey() != $key) {
+            $this->_response->setHttpResponseCode(403);
+            $this->_response->setBody('Invalid "key" parameter in request (' . $key . '). Go to /index.php to request a (new) key for your domain.');
+            $this->_response->sendResponse();
+            exit();
+        }
+        
         $this->_format = strtoupper($this->_param('format', 'XML', 'XML'));
         switch ($this->_format) {
             case 'JSON':
@@ -19,7 +45,7 @@ abstract class RestController extends Zend_Rest_Controller
             default:
                 $this->_response->setHttpResponseCode(403);
                 $this->_response->sendResponse();
-                exit;
+                exit();
         }
     }
 
