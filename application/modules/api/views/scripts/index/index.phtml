@@ -1,3 +1,8 @@
+<?php
+    function host() {
+        echo $_SERVER['HTTP_HOST'];
+    }
+?>
 <h2>Welcome</h2>
 <p>
     Welcome to the Web Services of the Catalogue of Life. Here you can find
@@ -8,24 +13,31 @@
 
 <h2>Subscribing</h2>
 <p>
-    When calling our web services, your application must provide a key as part
-    of the service URL. You can obtain a key by filling out the form below. Anyone
-    can make use of the web services provided by the Catalogue of Life.
+    Anyone can use our web services, but you have to obtain a key first. You can
+    obtain a key by filling out the form below.
+    When calling our web services, your application <b>must</b> always include a "key"
+    parameter in the request URL. The value of this parameter must be the key that is
+    generated for you after you have filled out the form. For example: http://<?php host(); ?>/webservices_v2/synonyms/query/species/panthera/genus/panthera/<b>key/da0ff78ac265d4fa49801b</b>.
 </p>
 
 <p>
-    We need at least the domain from which you will be calling our services. The
-    key will work for the domain you enter and all its subdomains. You can optionally
-    provide us with an email address, so which can inform you about upcoming changes
-    in the API, server malfunctions, etc. etc.
+    We need at least the domain from which you will be calling our services. If you are
+    testing the services on your own computer, the IP address we have filled out for you
+    is probably OK. Most likely though you will ultimately want to call our services from
+    one of your own servers. In that case look up and enter the IP address or domain name
+    of that server  The key will work for the domain you enter and all its subdomains. 
+    You can optionally provide us with an email address, so we can inform you about 
+    upcoming changes in the API, server malfunctions, etc. etc.
 </p>
 
+<a name="keyform"></a>
 <p>
+    <b>Key Request Form</b>
     <form method="post">
         <table>
             <tbody id="keyform-container">
                 <tr>
-                    <td class="right-aligned">Your Domain *</td>
+                    <td class="right-aligned">Your Domain <span style="color:#f00;font-weight:bold;">*</span></td>
                     <td><input id="domain" type="text" name="domain" value="<?php echo $_SERVER['REMOTE_ADDR'];?>" style="width:300px;" /></td>
                 </tr>
                 <tr>
@@ -41,21 +53,29 @@
 </p>
 
 <h2>Description of currently available web services</h2>
-<br /><br />
-<h1 style="text-decoration: underline;">Status of a scientific name in CoL</h1>
-<br /><br />
+You can currently call the following services:
+<ol>
+	<li><a href="#scientific_name_status_web_service">Scientific Name Status web service</a>. Returns the status of a scientific name in the Catalogue of Life</li>
+	<li><a href="#synonyms_web_service">Synonyms web service</a>. Returns the synonyms for a scientific name</li>
+	<li><a href="#common_names_web_service">Common Names web service</a>. Returns the common names for a scientific name</li>
+</ol>
+These web services are described in more detail below.
+<br/><br/>
+<a name="scientific_name_status_web_service"></a>
+<h3>Scientific Name Status web service</h3>
+<br/><br/>
 <p>
     Input is a scientific name (a genus name, a species name (binomial) or an infra-species name (trinomial) and the output is an XML with the status of the provided name in the Catalog of Life and a list of related accepted names with all the available information about each name.
 </p>
 <h4>Input URL</h4>
 <p>
-http://&lt;domain&gt;/status/query/key/&lt;generated_key&gt;/genus/&lt;genus_name&gt;[/species/&lt;species_name&gt;[/infraspecies/&lt;infraspecies_name&gt;]][/version/&lt;version_year&gt;]
+http://<?php host(); ?>/status/query/key/&lt;your-key&gt;/genus/&lt;genus_name&gt;[/species/&lt;species_name&gt;[/infraspecies/&lt;infraspecies_name&gt;]][/version/&lt;version_year&gt;]
 </p>
 <h4>Parameters</h4>
 <ul>
     <li>status - mandatory, service name</li>
     <li>query - mandatory, action name</li>
-    <li>key/&lt;generated_key&gt; - mandatory, generated key</li>
+    <li>key/&lt;your-key&gt; - mandatory, generated key</li>
     <li>genus/&lt;genus_name&gt; - mandatory</li>
     <li>species/&lt;species_name&gt; - optional</li>
     <li>infraspecies/&lt;infraspecies_name&gt; - optional, requires species parameter</li>
@@ -63,9 +83,9 @@ http://&lt;domain&gt;/status/query/key/&lt;generated_key&gt;/genus/&lt;genus_nam
 </ul>
 <h4>Examples</h4>
 <ul>
-    <li>http://&lt;domain&gt;/status/query/key/123456/genus/Tabebuia</li>
-    <li>http://&lt;domain&gt;/status/query/key/123456/genus/Salinator/species/solida/version/2011</li>
-    <li>http://&lt;domain&gt;/status/query/key/123456/genus/Caryodes/species/dufresnii/infraspecies/superior/version/2011</li>
+    <li>http://<?php host(); ?>/status/query/key/&lt;your-key&gt;/genus/Tabebuia</li>
+    <li>http://<?php host(); ?>/status/query/key/&lt;your-key&gt;/genus/Salinator/species/solida/version/2011</li>
+    <li>http://<?php host(); ?>/status/query/key/&lt;your-key&gt;/genus/Caryodes/species/dufresnii/infraspecies/superior/version/2011</li>
 </ul>
 
 <h4>XML Output</h4>
@@ -127,20 +147,24 @@ http://&lt;domain&gt;/status/query/key/&lt;generated_key&gt;/genus/&lt;genus_nam
 <br /><br />
 
 
-<h1 style="text-decoration: underline;">Taxon synonyms query</h1>
+
+
+
+<a name="synonyms_web_service"></a>
+<h3>Synonyms web service</h3>
 <br /><br />
 <p>
     Input is a scientific name (a genus name, a species name (binomial) or an infra-species name (trinomial) and the output is an XML with the status of the provided name and a list of related Accepted Names with all the information available about each one and a list of all synonyms for each Accepted Name.
 </p>
 <h4>Input URL</h4>
 <p>
-http://&lt;domain&gt;/synonyms/query/key/&lt;generated_key&gt;/genus/&lt;genus_name&gt;[/species/&lt;species_name&gt;[/infraspecies/&lt;infraspecies_name&gt;]][/version/&lt;version_year&gt;]
+http://<?php host(); ?>/synonyms/query/key/&lt;your-key&gt;/genus/&lt;genus_name&gt;[/species/&lt;species_name&gt;[/infraspecies/&lt;infraspecies_name&gt;]][/version/&lt;version_year&gt;]
 </p>
 <h4>Parameters</h4>
 <ul>
     <li>synonyms - mandatory, service name</li>
     <li>query - mandatory, action name</li>
-    <li>key/&lt;generated_key&gt; - mandatory, generated key</li>
+    <li>key/&lt;your-key&gt; - mandatory, generated key</li>
     <li>genus/&lt;genus_name&gt; - mandatory</li>
     <li>species/&lt;species_name&gt; - optional</li>
     <li>infraspecies/&lt;infraspecies_name&gt; - optional, requires species parameter</li>
@@ -148,9 +172,9 @@ http://&lt;domain&gt;/synonyms/query/key/&lt;generated_key&gt;/genus/&lt;genus_n
 </ul>
 <h4>Examples</h4>
 <ul>
-    <li>http://&lt;domain&gt;/synonyms/query/key/123456/genus/Tabebuia</li>
-    <li>http://&lt;domain&gt;/synonyms/query/key/123456/genus/Salinator/species/solida/version/2011</li>
-    <li>http://&lt;domain&gt;/synonyms/query/key/123456/genus/Caryodes/species/dufresnii/infraspecies/superior/version/2011</li>
+    <li>http://<?php host(); ?>/synonyms/query/key/&lt;your-key&gt;/genus/Tabebuia</li>
+    <li>http://<?php host(); ?>/synonyms/query/key/&lt;your-key&gt;/genus/Salinator/species/solida/version/2011</li>
+    <li>http://<?php host(); ?>/synonyms/query/key/&lt;your-key&gt;/genus/Caryodes/species/dufresnii/infraspecies/superior/version/2011</li>
 </ul>
 
 <h4>XML Output</h4>
@@ -228,20 +252,25 @@ http://&lt;domain&gt;/synonyms/query/key/&lt;generated_key&gt;/genus/&lt;genus_n
 &lt;/sp2000&gt;<br />
 <br /><br />
 
-<h1 style="text-decoration: underline;">Taxon common names query</h1>
+
+
+
+
+<a name="common_names_web_service"></a>
+<h3>Common Names web service</h3>
 <br /><br />
 <p>
     Input is a scientific name (a genus name, a species name (binomial) or an infra-species name (trinomial) and the output will be an XML with a list of common names associated with the scientific name.
 </p>
 <h4>Input URL</h4>
 <p>
-http://&lt;domain&gt;/common/query/key/&lt;generated_key&gt;/genus/&lt;genus_name&gt;[/species/&lt;species_name&gt;[/infraspecies/&lt;infraspecies_name&gt;]][/version/&lt;version_year&gt;]
+http://<?php host(); ?>/common/query/key/&lt;your-key&gt;/genus/&lt;genus_name&gt;[/species/&lt;species_name&gt;[/infraspecies/&lt;infraspecies_name&gt;]][/version/&lt;version_year&gt;]
 </p>
 <h4>Parameters</h4>
 <ul>
     <li>common - mandatory, service name</li>
     <li>query - mandatory, action name</li>
-    <li>key/&lt;generated_key&gt; - mandatory, generated key</li>
+    <li>key/&lt;your-key&gt; - mandatory, generated key</li>
     <li>genus/&lt;genus_name&gt; - mandatory</li>
     <li>species/&lt;species_name&gt; - optional</li>
     <li>infraspecies/&lt;infraspecies_name&gt; - optional, requires species parameter</li>
@@ -249,9 +278,9 @@ http://&lt;domain&gt;/common/query/key/&lt;generated_key&gt;/genus/&lt;genus_nam
 </ul>
 <h4>Examples</h4>
 <ul>
-    <li>http://&lt;domain&gt;/common/query/key/123456/genus/Tabebuia</li>
-    <li>http://&lt;domain&gt;/common/query/key/123456/genus/Salinator/species/solida/version/2011</li>
-    <li>http://&lt;domain&gt;/common/query/key/123456/genus/Caryodes/species/dufresnii/infraspecies/superior/version/2011</li>
+    <li>http://<?php host(); ?>/common/query/key/&lt;your-key&gt;/genus/Tabebuia</li>
+    <li>http://<?php host(); ?>/common/query/key/&lt;your-key&gt;/genus/Salinator/species/solida/version/2011</li>
+    <li>http://<?php host(); ?>/common/query/key/&lt;your-key&gt;/genus/Caryodes/species/dufresnii/infraspecies/superior/version/2011</li>
 </ul>
 
 <h4>XML Output</h4>

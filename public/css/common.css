@@ -61,6 +61,16 @@ h2 {
 	padding: 2px;
 }
 
+h3 {
+	background-color: #bbb;	
+	color:#fff;
+	padding:2px;
+}
+
+h4 {
+	text-decoration: none;
+}
+
 body {
 	background-color: #fff;
 }
